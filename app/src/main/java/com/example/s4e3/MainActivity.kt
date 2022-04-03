@@ -14,7 +14,8 @@ import java.util.*
 
 var tasks : List<Task> =  listOf(
     Task("Task 1" , Date(2022 , 3 , 3 )) ,
-    Task("Task 2" , Date(2022 , 3 , 3) )
+    Task("Task 2" , Date(2022 , 3 , 3) ) ,
+    Task("Task 2" , Date(2022 , 3 , 4) )
 ) ;
 
 class MainActivity : AppCompatActivity() , Comunication {
@@ -23,7 +24,17 @@ class MainActivity : AppCompatActivity() , Comunication {
         setContentView(R.layout.activity_main)
 
 
-        val listFragment = ListFragment(tasks!!)
+        var today : Calendar = Calendar.getInstance() ;
+        var this_year = today.get(Calendar.YEAR) ;
+
+
+        typeFilter.text = "Aujourd'hui"
+
+        val new_tasks = tasks.filter {
+            it.date.equals(Date(today.get(Calendar.YEAR)  , today.get(Calendar.MONTH)  , today.get(Calendar.DAY_OF_MONTH) ))
+        }
+
+        val listFragment = ListFragment(new_tasks!!)
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragment,  listFragment)
             commit()
@@ -101,8 +112,19 @@ class MainActivity : AppCompatActivity() , Comunication {
     }
 
     fun DateChange(year:Int , month:Int  , dayOfMonth:Int ) {
+
+        var today : Calendar = Calendar.getInstance() ;
+        var this_year = today.get(Calendar.YEAR) ;
+
+
+        typeFilter.text = "Aujourd'hui"
+
+        val new_tasks = tasks.filter {
+            it.date.equals(Date(today.get(Calendar.YEAR)  , today.get(Calendar.MONTH)  , today.get(Calendar.DAY_OF_MONTH) ))
+        }
+
         tasks += Task(tvNew.text.toString() , Date(year , month , dayOfMonth))
-        val listFragment = ListFragment(tasks!!)
+        val listFragment = ListFragment(new_tasks!!)
 
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragment,  listFragment)
