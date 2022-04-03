@@ -18,17 +18,28 @@
         android:layout_height="wrap_content"
         android:layout_weight="5"
         android:minHeight="30dp"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tvTitre"
-            android:layout_width="match_parent"
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:paddingHorizontal="30dp"
-            android:text="Titre du libre"
-            android:textAlignment="center"
+            android:text="Task name"
+            android:textAlignment="textStart"
             android:textColor="#256F98"
+            android:layout_weight="1"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="30dp"
+            android:text="dd-MM-yyy"
+            android:textAlignment="textEnd"
+            android:layout_weight="1"
+            android:textColor="@color/black"
             android:textStyle="bold|italic" />
     </LinearLayout>
 
