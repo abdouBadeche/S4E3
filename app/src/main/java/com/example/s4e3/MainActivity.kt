@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.GravityCompat
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.recycler_livre_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,6 +31,52 @@ class MainActivity : AppCompatActivity() , Comunication {
 
         button.setOnClickListener{ view ->
             clickDatePicker(view)
+        }
+
+        btnToday.setOnClickListener {
+
+            var today : Calendar = Calendar.getInstance() ;
+            var this_year = today.get(Calendar.YEAR) ;
+
+
+            typeFilter.text = "Aujourd'hui"
+
+            val new_tasks = tasks.filter {
+                it.date.equals(Date(today.get(Calendar.YEAR)  , today.get(Calendar.MONTH)  , today.get(Calendar.DAY_OF_MONTH) ))
+            }
+            val listFragment = ListFragment(new_tasks!!)
+
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.flFragment,  listFragment)
+                commit()
+            }
+        }
+
+        btnWeek.setOnClickListener {
+
+            typeFilter.text = "Cette Semaine"
+
+            val new_tasks = tasks.filter {
+                it.date.equals(Date())
+            }
+            val listFragment = ListFragment(new_tasks!!)
+
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.flFragment,  listFragment)
+                commit()
+            }
+        }
+
+        btnAll.setOnClickListener {
+
+            typeFilter.text = "Toutes"
+
+            val listFragment = ListFragment(tasks!!)
+
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.flFragment,  listFragment)
+                commit()
+            }
         }
     }
 
